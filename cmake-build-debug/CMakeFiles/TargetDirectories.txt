@@ -1,0 +1,4 @@
+/Users/freddyzhu/program/cpp/model_svc/cmake-build-debug/CMakeFiles/model_svc.dir
+/Users/freddyzhu/program/cpp/model_svc/cmake-build-debug/CMakeFiles/scratch.dir
+/Users/freddyzhu/program/cpp/model_svc/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/freddyzhu/program/cpp/model_svc/cmake-build-debug/CMakeFiles/rebuild_cache.dir

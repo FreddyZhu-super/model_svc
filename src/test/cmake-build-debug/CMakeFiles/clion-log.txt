@@ -1,0 +1,33 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/freddyzhu/program/cpp/model_svc/src/test -B /Users/freddyzhu/program/cpp/model_svc/src/test/cmake-build-debug
+CMake Warning (dev) at CMakeLists.txt:7:
+  Syntax Warning in cmake code at column 36
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Error at CMakeLists.txt:5 (find_package):
+  Could not find a package configuration file provided by "nlohmann_json"
+  with any of the following names:
+
+    nlohmann_jsonConfig.cmake
+    nlohmann_json-config.cmake
+
+  Add the installation prefix of "nlohmann_json" to CMAKE_PREFIX_PATH or set
+  "nlohmann_json_DIR" to a directory containing one of the above files.  If
+  "nlohmann_json" provides a separate development package or SDK, be sure it
+  has been installed.
+
+
+CMake Warning (dev) in CMakeLists.txt:
+  No cmake_minimum_required command is present.  A line of code such as
+
+    cmake_minimum_required(VERSION 3.23)
+
+  should be added at the top of the file.  The version specified may be lower
+  if you wish to support older CMake versions for this project.  For more
+  information run "cmake --help-policy CMP0000".
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/freddyzhu/program/cpp/model_svc/src/test/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/Users/freddyzhu/program/cpp/model_svc/src/test/cmake-build-debug/CMakeFiles/CMakeError.log".

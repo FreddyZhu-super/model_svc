@@ -1,0 +1,5 @@
+# ninja log v5
+28	325	1663834224005111627	build.ninja	df2f524c9065c064
+1	2801	1663827309426531972	CMakeFiles/model_svc.dir/lib/ucloud_cambricon_sdk/inner_utils/postprocessor.cpp.o	78c49015c60884f7
+1	3411	1663827310036715784	CMakeFiles/model_svc.dir/lib/ucloud_cambricon_sdk/main_backup/test_factory_face_recognition.cpp.o	4dc3b0f5f7984b68
+2	4984	1663827311609040439	CMakeFiles/model_svc.dir/lib/ucloud_cambricon_sdk/jsoncpp/jsoncpp.cpp.o	96f8afce9d4a464
