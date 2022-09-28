@@ -9,15 +9,15 @@
 #include "../../lib/json/single_include/nlohmann/json.hpp"
 #include "manager.h"
 #include "../common/model_common.h"
-#include "../../lib/ucloud_cambricon_sdk/libai_core.hpp"
-#include "../../lib/ucloud_cambricon_sdk/config.hpp"
+#include "../../lib/rk3399/libai_core.hpp"
+#include "../../lib/rk3399/config.hpp"
 
-using Algorithm::Manager;
+using Model::Manager;
 using json = nlohmann::json;
 
 
 static std::map<AlgoAPIName, string> modelMap;
-static AlgHandlerMap algHandlerMap;
+static Model::AlgHandlerMap handlerMap;
 
 std::map<AlgoAPIName, string> ReadJson() {
     std::ifstream json_file("model.json");
@@ -27,42 +27,53 @@ std::map<AlgoAPIName, string> ReadJson() {
     for (auto &el: json_read.items()) {
         std::cout << el.key() << " : " << el.value() << "\n";
         AlgoAPIName alg_name = (AlgoAPIName) stroi(el.key());
-        model_map[alg_name] = el.value();
+        modelMap[alg_name] = el.value();
     }
-    return model_map;
+    return modelMap;
 }
 
 
-Algorithm::STATUS manager::InitModelMap(std::string json_file_name) {
+Model::STATUS Manager::InitModelMap(std::string json_file_name) {
     modelInfo = ReadJson();
-    return Algorithm::SUCCESS;
+    return Model::SUCCESS;
 }
 
-Algorithm::STATUS manager::InitModel(ucloud::AlgoAPIName apiName) {
-    ucloud::AlgoAPI alg_api;
+Model::STATUS Manager::InitModel(ucloud::AlgoAPIName apiName, std::map<int32_t, std::string> &modelpath) {
+    ucloud::AlgoAPISPtr handler = handlerMap.Get(apiName);
+    if (handler == nullptr) {
+        return Model::SUCCESS
+    }
     ucloud::AlgoAPISPtr algHandle = ucloud::AICoreFactory::getAlgoAPI(apiName);
-    ret = algHandle->init(modelMap[apiName]);
+    ucloud::RET_CODE ret = algHandle->init(modelpath);
     if (ret != ucloud::SUCCESS) {
-        cout << "algorithm init return " << ret << endl;
-        return ERROR
+        cout << "algorithm init error: " << ret << endl;
+        return Model::ERROR
     } else {
-        algHandlerMap->Set(apiName, algHandle);
+        handlerMap.Set(apiName, algHandle);
     }
-    return Algorithm::SUCCESS;
+    return Model::SUCCESS;
 }
 
-Algorithm::STATUS manager::ReleaseModel(ucloud::AlgoAPIName apiName) {
-    ucloud::AlgoAPISPtr algHandler = algHandlerMap->Get(apiName);
+Model::STATUS Manager::ReleaseModel(ucloud::AlgoAPIName apiName) {
+    ucloud::AlgoAPISPtr algHandler = handlerMap.Get(apiName);
     if (algHandler == nullptr) {
-        return Algorithm::SUCCESS;
+        return Model::SUCCESS;
     }
-    algHandlerMap->DeleteAndRelease(apiName)
-    return Algorithm::SUCCESS;
+    handlerMap.DeleteAndRelease(apiName)
+    return Model::SUCCESS;
 }
 
-Algorithm::STATUS
+Model::STATUS
 Manager::Inference(ucloud::AlgoAPIName apiName, InferenceParam *param, InferenceResult *res) {
-    ucloud::AlgoAPISPtr algPtr = algHandlerMap->Get(apiName);
-    algPtr->run(param->tvimage, param->bboxes)
-    return Algorithm::SUCCESS;
+    ucloud::AlgoAPISPtr algHandler = handlerMap.Get(apiName);
+    if (algHandler == nullptr) {
+        return Model::ERROR_MODEL_NOT_INIT_YET
+    }
+    ucloud::RET_CODE retCode = algHandler->run(param->tvimage, &res->bBoxes, param->threshold, param->nmsThreshold);
+    if (retCode != ucloud::SUCCESS) {
+        std::cout << RetCodeToString[retCode]<< std::endl;
+        return Model::ERROR
+    }
+
+    return Model::SUCCESS;
 }

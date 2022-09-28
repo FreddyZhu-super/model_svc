@@ -1,0 +1,44 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/freddyzhu/program/cpp/rk3399 -B /Users/freddyzhu/program/cpp/rk3399/cmake-build-debug
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- The C compiler identification is AppleClang 13.1.6.13160021
+-- The CXX compiler identification is AppleClang 13.1.6.13160021
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- RK3399_HOME: /project/rk3399_workspace/rknpu_firefly/rknn/rknn_api/librknn_api
+-- opencv libraries: /project/rk3399_workspace/libs/opencv/lib/libopencv_video.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_objdetect.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_shape.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_superres.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_videostab.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_features2d.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_highgui.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_videoio.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_imgcodecs.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_photo.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_imgproc.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_flann.a;/project/rk3399_workspace/libs/opencv/lib/libopencv_core.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibprotobuf.a;-Wl,--whole-archive /project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/libzlib.a -Wl,--no-whole-archive;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibjpeg-turbo.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibwebp.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibpng.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibtiff.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/liblibjasper.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/libIlmImf.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/libquirc.a;/project/rk3399_workspace/libs/opencv/share/OpenCV/3rdparty/lib/libtegra_hal.a
+common link libs: /project/rk3399_workspace/libs/gflags/lib/libgflags.a;/project/rk3399_workspace/libs/glog/lib/libglog.a
+-- Use default ABI settings
+@@ CMAKE_CXX_FLAGS =  -std=c++11 -D_REENTRANT -Wno-sign-compare -fPIC -Wall -g -pthread -fstack-protector-all -D_FORTIFY_SOURCE=2 -O2
+@@ DLL MODE ACTIVATED
+visibility activated
+=========END=========
+-- Configuring done
+CMake Error at CMakeLists.txt:136 (add_library):
+  Cannot find source file:
+
+    libai_core.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+
+
+CMake Error at CMakeLists.txt:136 (add_library):
+  No SOURCES given to target: ai_core
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

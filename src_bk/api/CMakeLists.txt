@@ -7,7 +7,7 @@ include(./common.cmake)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
-set (proto_name algorithm)
+set (proto_name model)
 
 # Get proto files
 get_filename_component(proto "./protos/${proto_name}.proto" ABSOLUTE)

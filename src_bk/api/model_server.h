@@ -7,13 +7,13 @@
 
 
 #include <string>
-#include "../model/manager.h"
+#include "../common/model_common.h"
 
 
 namespace Model {
     class server {
     public:
-        STATUS run();
+        Model::STATUS run();
     };
 };
 
