@@ -10,14 +10,14 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo)
 set (proto_name model)
 
 # Get proto files
-get_filename_component(proto "./protos/${proto_name}.proto" ABSOLUTE)
+get_filename_component(proto "./api/protos/${proto_name}.proto" ABSOLUTE)
 get_filename_component(proto_dir "${proto}" DIRECTORY)
 
 # Generate source files
-set(proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/protos/${proto_name}.pb.cc")
-set(proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/protos/${proto_name}.pb.h")
-set(grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/protos/${proto_name}.grpc.pb.cc")
-set(grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/protos/${proto_name}.grpc.pb.h")
+set(proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/api/protos/${proto_name}.pb.cc")
+set(proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/api/protos/${proto_name}.pb.h")
+set(grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/api/protos/${proto_name}.grpc.pb.cc")
+set(grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/api/protos/${proto_name}.grpc.pb.h")
 add_custom_command(
     OUTPUT "${proto_srcs}" "${proto_hdrs}" "${grpc_srcs}" "${grpc_hdrs}"
     COMMAND ${_PROTOBUF_PROTOC}
@@ -29,7 +29,8 @@ add_custom_command(
     DEPENDS "${proto}"
 )
 
-set(targets "${proto_name}_server" "${proto_name}_client")
+#set(targets "${proto_name}_server" "${proto_name}_client")
+set(targets "${proto_name}_server")
 
 # Include generated *.pb.h files
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

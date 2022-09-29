@@ -8,27 +8,34 @@
 #include <string>
 #include <map>
 #include <mutex>
-#include "../common/model_common.h"
-#include "../../lib/rk3399/libai_core.hpp"
-#include "../../lib/rk3399/config.hpp"
+#include "model_common.h"
+#include "include/rk3399/libai_core.hpp"
+#include "include/rk3399/config.hpp"
 
 namespace Model {
-    typedef struct InferenceParam {
+    class InferenceParam {
+    public:
         float threshold;
         float nmsThreshold;
         ucloud::TvaiImage &tvimage;
+
+
+        InferenceParam(float _threshold, float _nmsThreshold) {
+            ucloud::TvaiImage tImg;
+            this->threshold  = _threshold;
+            this->nmsThreshold = _nmsThreshold;
+            this->tvimage = tImg;
+        }
+        ~InferenceParam(){}
     } InferenceParam;
 
-    typedef struct InferenceResult {
-        ucloud::VecObjBBox &bBoxes;
-        std::string errMsg;
-        bool success;
-    } InferenceResult;
-
+    typedef ucloud::VecObjBBox InferenceResult;
 
     class Manager {
     public:
-        STATUS InitModel(ucloud::AlgoAPIName apiName, std::map<int32_t, std::string> &modelPath);
+        Manager(){};
+        ~Manager();
+        STATUS InitModel(ucloud::AlgoAPIName apiName, std::map <int32_t, std::string> &modelPath);
 
         STATUS ReleaseModel(ucloud::AlgoAPIName apiName);
 
@@ -58,7 +65,7 @@ namespace Model {
 
         void Set(ucloud::AlgoAPIName apiName, ucloud::AlgoAPISPtr algPtr) {
             this->mut.lock();
-            this->m.insert(apiName, algPtr);
+            this->m[apiName] = algPtr;
             this->mut.unlock();
         };
 
@@ -67,26 +74,26 @@ namespace Model {
             ucloud::AlgoAPISPtr h = this->m[apiName];
             this->m.erase(apiName);
             this->mut.unlock();
-            h = nullptr
+            h = nullptr;
         };
 
         // return null pointer if not exist
-        AlgoAPISPtr Get(AlgoAPIName apiName) {
+        ucloud::AlgoAPISPtr Get(AlgoAPIName apiName) {
             this->mut.lock();
             ucloud::AlgoAPISPtr res = this->m[apiName];
             this->mut.unlock();
-            return res
+            return res;
         };
 
 
     };
 
-    std::map<ucloud::RET_CODE:std::string>
-    RetCodeToString =
+    std::map <ucloud::RET_CODE, std::string>
+            RetCodeToString =
             {
                     {ucloud::SUCCESS,                    "success"},
                     {ucloud::FAILED,                     "failed for unknown reason"},
-                    {ucloud::ERR_MLU_INIT_FAILED,        "MLU init failed"},
+                    {ucloud::ERR_NPU_INIT_FAILED,        "MLU init failed"},
                     {ucloud::ERR_MODEL_FILE_NOT_EXIST,   "model file not found"},
                     {ucloud::ERR_INIT_PARAM_FAILED,      "wrong init parameters"},
                     {ucloud::ERR_UNSUPPORTED_IMG_FORMAT, "imported wrong format image"},
